@@ -36,7 +36,6 @@ class PerformanceAnalytics {
                         domLoad: perfNavigationEntries.domComplete,
                         resMetrics: this.getResourceLoadTimes(resourceListEntries)
                     }
-        
                     console.log(performanceAnalytics);
                 } else {
                     console.warn('Your browser does not support performance navigation api...')
