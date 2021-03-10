@@ -45,6 +45,9 @@ const MetricSchema = mongoose.Schema({
           required: true
         }
     }],
+}, 
+{ 
+    timestamps: true
 })
 
 module.exports = mongoose.model('Metric', MetricSchema)

@@ -4,15 +4,23 @@ const router = express.Router();
 const Metric = require('../model/Metric');
 
 // GET ALL THE METRICS
+// localhost:3000/metrics?fromDate=1615399967399
 router.get('/', async (req, res) => {
+    const query = {};
     let { fromDate, toDate } = req.query;
+    
     if(!fromDate){
         fromDate = new Date();
         fromDate.setMinutes(fromDate.getMinutes() - 30)
     }
+    if (fromDate || toDate) {
+        query.$and = [];
+        if (fromDate) query.$and.push({ createdAt: {$gt: fromDate} });
+        if (toDate) query.$and.push({ createdAt: {$lte: toDate} });
+    }
     try{
         // return all the Metrics
-        const metrics = await Metric.find();
+        const metrics = await Metric.find(query);
         res.json(metrics)
     }catch(err) {
         console.log('ERROR: ', err)
