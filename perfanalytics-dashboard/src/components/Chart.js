@@ -33,6 +33,7 @@ const data = [
 
 export default function Chart() {
     return (
+      <ResponsiveContainer width="99%" aspect={2}>
         <LineChart
           width={500}
           height={300}
@@ -50,7 +51,7 @@ export default function Chart() {
           <Tooltip />
           <Legend />
           <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
         </LineChart>
+      </ResponsiveContainer>
     )
 }

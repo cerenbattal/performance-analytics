@@ -18,13 +18,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const handleShowButton = () => {
-
-}
-
 function App() {
   const classes = useStyles();
-  //const [isShowCharts, setValue] = useState(defaultValue)
   return (
     <Container maxWidth="m">
         <div className={classes.root}>
@@ -34,8 +29,7 @@ function App() {
                   <DatePicker />
                   <Button 
                     variant="contained" 
-                    color="primary"
-                    onClick={handleShowButton}
+                    style={{backgroundColor: "#8884D8", color: '#FDFDFE'}}
                   >
                     Show
                   </Button>
