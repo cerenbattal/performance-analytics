@@ -8,13 +8,21 @@ import {
 } from '@material-ui/pickers';
 
 
-export default function DatePicker() {
-    // The first commit of Material-UI
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+export default function DatePicker(props) {
+    const [selectedFromDate, setSelectedFromDate] = React.useState(new Date());
+    const [selectedToDate, setSelectedToDate] = React.useState(new Date());
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
+    const handleFromDateChange = (date) => {
+        console.log(date);
+        setSelectedFromDate(date);
     };
+
+    const handleToDateChange = (date) => {
+        console.log(date);
+        setSelectedToDate(date);
+    };
+
+    props.onSelectDate(selectedFromDate, selectedToDate)
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -22,12 +30,12 @@ export default function DatePicker() {
                 <KeyboardDatePicker
                     disableToolbar
                     variant="inline"
-                    format="MM/dd/yyyy"
+                    format="dd/MM/yyyy"
                     margin="normal"
-                    id="date-picker-inline"
+                    id="date-picker-inline-one"
                     label="From:"
-                    value={selectedDate}
-                    onChange={handleDateChange}
+                    value={selectedFromDate}
+                    onChange={handleFromDateChange}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',
                     }}
@@ -35,12 +43,12 @@ export default function DatePicker() {
                 <KeyboardDatePicker
                     disableToolbar
                     variant="inline"
-                    format="MM/dd/yyyy"
+                    format="dd/MM/yyyy"
                     margin="normal"
-                    id="date-picker-inline"
+                    id="date-picker-inline-two"
                     label="To:"
-                    value={selectedDate}
-                    onChange={handleDateChange}
+                    value={selectedToDate}
+                    onChange={handleToDateChange}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',
                     }}
