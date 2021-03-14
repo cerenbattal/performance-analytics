@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     },
   });
 
-export default function InfoCard() {
+export default function InfoCard({ url, userAgent, resMetrics }) {
     const classes = useStyles();
 
   return (
@@ -18,13 +18,21 @@ export default function InfoCard() {
         Client Info
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        url: <Typography variant="body1" style={{display: 'inline-block'}}>clienturl</Typography>
+        url: <Typography variant="body1" style={{display: 'inline-block'}}>{url}</Typography>
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        userAgent: <Typography variant="body1" style={{display: 'inline-block'}}>userAgent</Typography>
+        userAgent: <Typography variant="body1" style={{display: 'inline-block'}}>{userAgent}</Typography>
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        resMetrics: <Typography variant="body1" style={{display: 'inline-block'}}>resMetrics</Typography>
+        resMetrics: <br />{
+          resMetrics.map((res) => {
+            return(
+              <Typography variant="body1" key={res._id}>
+                {res.resName} - {res.resLoadTime}s
+              </Typography>
+            )
+          })
+        }
       </Typography>
       
     </div>

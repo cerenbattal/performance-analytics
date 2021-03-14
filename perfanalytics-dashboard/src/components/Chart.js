@@ -10,34 +10,36 @@ import {
     ResponsiveContainer 
 } from 'recharts';
 
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  }
-];
+// const data = [
+//   {
+//     name: 'Page A',
+//     uv: 4000,
+//     pv: 2400,
+//     amt: 2400,
+//   },
+//   {
+//     name: 'Page B',
+//     uv: 3000,
+//     pv: 1398,
+//     amt: 2210,
+//   },
+//   {
+//     name: 'Page C',
+//     uv: 2000,
+//     pv: 9800,
+//     amt: 2290,
+//   }
+// ];
 
-export default function Chart() {
+export default function Chart({ header, chartData }) {
     return (
-      <ResponsiveContainer width="99%" aspect={2}>
+      <div>
+        <h4>{header}</h4>
+        <ResponsiveContainer width="99%" aspect={2}>
         <LineChart
           width={500}
           height={300}
-          data={data}
+          data={chartData}
           margin={{
             top: 5,
             right: 30,
@@ -46,12 +48,14 @@ export default function Chart() {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="createdAt" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
         </LineChart>
       </ResponsiveContainer>
+      </div>
+     
     )
 }
