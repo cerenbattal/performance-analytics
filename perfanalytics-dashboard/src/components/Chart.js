@@ -48,7 +48,9 @@ export default function Chart({ header, chartData }) {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="createdAt" />
+          <XAxis 
+            dataKey="createdAt"
+          />
           <YAxis />
           <Tooltip />
           <Legend />

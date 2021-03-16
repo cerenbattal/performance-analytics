@@ -19,46 +19,51 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const getAllMetrics = () => {
+export const getAllMetrics = (date) => {
     return new Promise((resolve, reject) => {
-        metricService.findAll().then(
-            (response) => {
-                resolve(response)
-            },
-            error => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-                reject(resMessage)
-            }
-        );
+        if(date) {
+            metricService.findAll(date.to, date.from).then(
+                (response) => {
+                    resolve(response)
+                },
+                error => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                    reject(resMessage)
+                }
+            );
+        } else {
+            metricService.findAll().then(
+                (response) => {
+                    resolve(response)
+                },
+                error => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                    reject(resMessage)
+                }
+            );
+        }
+        
     })
 }
 
 
-export default function ChartBody() {
+export function ChartBody({data}) {
     const classes = useStyles();
-    const [data, setData] = useState([]);
 
-    useEffect(() => {
-        getAllMetrics()
-            .then((res) => {
-              setData(res);
-              console.log('RES: ', res)
-            });
-    }, []);
-
-    
     const allCharts = metricTypes.map((header, index) => {
         let metricArray = []
         data.map((metric) => {
-            // console.log('METRIC: ', metric)
-            // console.log('HEADER: ', header)
             metricArray.push({value: metric[header], createdAt: metric.createdAt})
-            // console.log('METRIC ARRAY: ', metricArray)
         })
         return (
             <Grid item xs={12}>

@@ -4,20 +4,43 @@ const router = express.Router();
 const Metric = require('../model/Metric');
 
 // GET ALL THE METRICS
-// localhost:3000/metrics?fromDate=1615399967399
 router.get('/', async (req, res) => {
     const query = {};
     let { fromDate, toDate } = req.query;
+    console.log('req.query: ', req.query)
     
     if(!fromDate){
+        query.$and = [];
         fromDate = new Date();
         fromDate.setMinutes(fromDate.getMinutes() - 30)
-    }
-    if (fromDate || toDate) {
+        fromDate = fromDate.getTime()
+        console.log('fromDate YOKTU VE BIZ EKLEDIK: ', fromDate)
+        query.$and.push({
+            createdAt: {
+                $gt: new Date(fromDate)
+            }
+        });
+    }else if(fromDate) {
         query.$and = [];
-        if (fromDate) query.$and.push({ createdAt: {$gt: fromDate} });
-        if (toDate) query.$and.push({ createdAt: {$lte: toDate} });
+        if(toDate){
+            console.log('toDate VAR: ', toDate)
+            query.$and.push({
+                createdAt: {
+                    $gt: new Date(fromDate*1000),
+                    $lte: new Date(toDate*1000)
+                }
+            });
+        } else {
+            console.log('toDate YOK')
+            query.$and.push({
+                createdAt: {
+                    $gt: new Date(fromDate*1000)
+                }
+            });
+        }
     }
+    console.log('fromDate: ', fromDate)
+    console.log('toDate: ', toDate)
     try{
         // return all the Metrics
         const metrics = await Metric.find(query);
