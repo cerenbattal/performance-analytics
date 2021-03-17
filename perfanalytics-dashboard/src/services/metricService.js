@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = "http://localhost:3000/metrics";
 
 class metricService {
-    findAll(from, to) {
+    findAll(to, from) {
         let url = API_URL;
 
         if(!from){

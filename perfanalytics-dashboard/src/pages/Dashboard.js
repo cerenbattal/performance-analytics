@@ -22,16 +22,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
     const classes = useStyles();
     const [data, setData] = useState([]);
-    const [date, setDate] = useState({ to: new Date(), from: new Date()});
-    //const date = {from: '1615586447', to: '1615240847'}
-
-    const handleClick = () => {
-      getAllMetrics(date)
-      .then((res) => {
-        console.log('RES: ', res)
-      });
-    }
-
     useEffect(() => {
       getAllMetrics()
       .then((res) => {
@@ -40,28 +30,25 @@ export default function Dashboard() {
       });
     }, []);
 
-    const handleDate = (from, to) => {
-      console.log('FROM: ', from)
-      console.log('TO: ', to)
-      to = to ? new Date(to).getTime() : ""
-      from = from ? new Date(from).getTime() : ""
-      
-      //setDate({ to: to, from: from })
+    const handleDateData = (dateData) => {
+      setData(dateData)
     }
-    
+
+    // const handleDate = React.useCallback(({from, to}) => {
+    //   console.log('FROM: ', from)
+    //   console.log('TO: ', to)
+    //   to = to ? new Date(to).getTime() : ""
+    //   from = from ? new Date(from).getTime() : ""
+      
+    //   setDate({ to: to, from: from })
+    // }, [date, setDate]);
+
     return (
         <div className={classes.root}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                  <DatePicker onSelectDate={handleDate}/>
-                  <Button 
-                    variant="contained" 
-                    style={{backgroundColor: "#8884D8", color: '#FDFDFE'}}
-                    onClick={handleClick}
-                  >
-                    Show
-                  </Button>
+                  <DatePicker onSelectDate={handleDateData}/>
                 </Paper>
             </Grid>
             <Grid item xs={12}>
