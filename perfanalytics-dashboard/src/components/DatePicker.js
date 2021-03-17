@@ -1,28 +1,55 @@
 import 'date-fns';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import  { getAllMetrics } from '../components/ChartBody';
 
 
 export default function DatePicker(props) {
-    const [selectedFromDate, setSelectedFromDate] = React.useState(new Date());
-    const [selectedToDate, setSelectedToDate] = React.useState(new Date());
+    const [data, setData] = useState([]);
+    const [selectedFromDate, setSelectedFromDate] = useState(new Date());
+    const [selectedToDate, setSelectedToDate] = useState(new Date());
+    const [dateRange, setDateRange] = useState({ to: null, from: null});
 
     const handleFromDateChange = (date) => {
         console.log(date);
         setSelectedFromDate(date);
+        date = new Date(date).getTime() / 1000
+        setDateRange({ ...dateRange, from: date })
+        
     };
 
     const handleToDateChange = (date) => {
         console.log(date);
         setSelectedToDate(date);
+        date = new Date(date).getTime() / 1000
+        setDateRange({ ...dateRange, to: date })
+        // getAllMetrics(dateRange)
+        // .then((res) => {
+        //   console.log('RES: ', res)
+        //   setData(res)
+        // });
     };
 
-    props.onSelectDate(selectedFromDate, selectedToDate)
+    getAllMetrics(dateRange)
+        .then((res) => {
+          console.log('RES: ', res)
+          setData(res)
+        });
+
+    props.onSelectDate(data)
+
+    // useEffect(() => {
+    //     getAllMetrics(dateRange.from, dateRange.to)
+    //     .then((res) => {
+    //       console.log('RES: ', res)
+    //       setData(res)
+    //     });
+    //   }, []);
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
