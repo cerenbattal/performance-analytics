@@ -28,11 +28,6 @@ export default function DatePicker(props) {
         setSelectedToDate(date);
         date = new Date(date).getTime() / 1000
         setDateRange({ ...dateRange, to: date })
-        // getAllMetrics(dateRange)
-        // .then((res) => {
-        //   console.log('RES: ', res)
-        //   setData(res)
-        // });
     };
 
     getAllMetrics(dateRange)
@@ -43,13 +38,6 @@ export default function DatePicker(props) {
 
     props.onSelectDate(data)
 
-    // useEffect(() => {
-    //     getAllMetrics(dateRange.from, dateRange.to)
-    //     .then((res) => {
-    //       console.log('RES: ', res)
-    //       setData(res)
-    //     });
-    //   }, []);
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>

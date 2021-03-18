@@ -4,8 +4,6 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import DatePicker from '../components/DatePicker';
 import  { ChartBody, getAllMetrics } from '../components/ChartBody';
-import Button from '@material-ui/core/Button';
-import metricService from '../services/metricService';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,15 +31,6 @@ export default function Dashboard() {
     const handleDateData = (dateData) => {
       setData(dateData)
     }
-
-    // const handleDate = React.useCallback(({from, to}) => {
-    //   console.log('FROM: ', from)
-    //   console.log('TO: ', to)
-    //   to = to ? new Date(to).getTime() : ""
-    //   from = from ? new Date(from).getTime() : ""
-      
-    //   setDate({ to: to, from: from })
-    // }, [date, setDate]);
 
     return (
         <div className={classes.root}>
